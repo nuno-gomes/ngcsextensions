@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 using CommunityServer.Components;
 using CommunityServer.Blogs.Components;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Web;
 
-namespace NunoGomes.CommunityServer.Components
+namespace NunoGomes.CommunityServer.Blogs.Components
 {
     public class WeblogRssHandler : global::CommunityServer.Blogs.Components.WeblogRssHandler
     {

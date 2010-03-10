@@ -88,7 +88,7 @@
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaProvider.cs" />
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaProviderImageHandler.cs" />
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\ADSSAntiBot.cs" />
-    <Compile Include="Controls\ContactFormCaptchaAdapter.cs" />
+    <Compile Include="Blogs\Controls\ContactFormCaptchaAdapter.cs" />
     <Compile Include="Blogs\Components\WeblogRssHandler.cs" />
     <Compile Include="Controls\RateableContentRating.cs" />
     <Compile Include="Resources.Designer.cs">
