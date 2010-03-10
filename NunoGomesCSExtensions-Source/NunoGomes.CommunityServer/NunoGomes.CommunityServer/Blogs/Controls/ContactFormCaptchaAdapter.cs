@@ -1,6 +1,7 @@
 ﻿using CommunityServer.Controls;
+using NunoGomes.CommunityServer.Controls;
 
-namespace NunoGomes.CommunityServer.Controls
+namespace NunoGomes.CommunityServer.Blogs.Controls
 {
     public class ContactFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
     {
