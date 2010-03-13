@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NunoGomes.CommunityServer.Util
+namespace NunoGomes.CommunityServer.Captcha.Providers
 {
     public static partial class CipherManager
     {

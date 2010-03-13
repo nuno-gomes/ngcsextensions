@@ -1,43 +1,51 @@
 ﻿using System.Web;
 using System.Drawing;
-using NunoGomes.CommunityServer.Util;
+using NunoGomes.CommunityServer.Captcha.Configuration;
 
 namespace NunoGomes.CommunityServer.Captcha.Providers
 {
     public class SimpleCaptchaProviderImageHandler : IHttpHandler
     {
-        private ADSSAntiBot _captcha = new ADSSAntiBot();
+        private ADSSAntiBot _captchaGenerator = new ADSSAntiBot();
 
         ~SimpleCaptchaProviderImageHandler()
         {
-            if (this._captcha != null)
+            if (this._captchaGenerator != null)
             {
-                this._captcha.Dispose();
+                this._captchaGenerator.Dispose();
             }
         }
 
         public void ProcessRequest(HttpContext context)
         {
-            context.Response.Clear();
-            context.Response.ClearHeaders();
-            context.Response.ClearContent();
-            context.Response.ContentType = "image/jpeg";
-
-            string id = context.Request["id"];
-            if (!string.IsNullOrEmpty(id))
+            if (CaptchaConfiguration.DefaultProvider is ICipherProvider)
             {
-                string code = CipherManager.Decrypt(id);
-                if (!string.IsNullOrEmpty(code))
+                context.Response.Clear();
+                context.Response.ClearHeaders();
+                context.Response.ClearContent();
+                context.Response.ContentType = "image/jpeg";
+
+                string id = context.Request["id"];
+                if (!string.IsNullOrEmpty(id))
                 {
-                    this._captcha.DrawText(code);
+                    string code = ((ICipherProvider)CaptchaConfiguration.DefaultProvider).Decrypt(id);
+                    if (!string.IsNullOrEmpty(code))
+                    {
+                        this._captchaGenerator.DrawText(code);
 
-                    Bitmap bmp = this._captcha.Result;
-                    bmp.Save(context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        Bitmap bmp = this._captchaGenerator.Result;
+                        bmp.Save(context.Response.OutputStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                    }
                 }
-            }
 
-            context.Response.Flush();
-            context.Response.Close();
+                context.Response.Flush();
+                context.Response.Close();
+            }
+            else
+            {
+                context.Response.StatusCode = 404;
+                context.Response.Close();
+            }
         }
 
         public bool IsReusable

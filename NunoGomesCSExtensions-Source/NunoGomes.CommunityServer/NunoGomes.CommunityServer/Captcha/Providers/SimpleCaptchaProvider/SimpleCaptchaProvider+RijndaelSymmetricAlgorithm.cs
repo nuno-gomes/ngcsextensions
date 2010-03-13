@@ -1,12 +1,11 @@
 using System;
 using System.IO;
 using System.Text;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 
-namespace NunoGomes.CommunityServer.Util
+namespace NunoGomes.CommunityServer.Captcha.Providers
 {
-    public static partial class CipherManager
+    public  partial class SimpleCaptchaProvider
     {
         private class RijndaelSymmetricAlgorithm
         {
