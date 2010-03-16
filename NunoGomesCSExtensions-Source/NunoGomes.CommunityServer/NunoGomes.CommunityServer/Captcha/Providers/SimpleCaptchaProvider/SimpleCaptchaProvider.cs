@@ -16,7 +16,7 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
         private string _saltValue = null;        // can be any string
         private string _hashAlgorithm = null;             // can be "MD5"
         private int _passwordIterations = 3;                  // can be any number
-        private string _initVector = "@PT9Net5Pt0ComH8"; // must be 16 bytes
+        private string _initVector = "@some=InitVector"; // must be 16 bytes
         private int _keySize = 256;                // can be 192 or 128
 
         private RijndaelSymmetricAlgorithm _manager = null;
@@ -62,7 +62,10 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             string enabledStr = config["enabled"];
             if (!String.IsNullOrEmpty(enabledStr))
             {
-                bool.TryParse(enabledStr, out _enabled);
+                if(!bool.TryParse(enabledStr, out _enabled))
+                {
+                    throw new ProviderException("Invalid enabled value [true|false]");
+                }
             }
             config.Remove("enabled");
 
@@ -92,12 +95,63 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
              * ----------------------
              * Initialize hashAlgorithm
              */
-            _hashAlgorithm = config["hashAlgorithm"];
-            if (String.IsNullOrEmpty(_hashAlgorithm))
+            string hashAlgorithm = config["hashAlgorithm"];
+            if (String.IsNullOrEmpty(hashAlgorithm))
             {
                 throw new ProviderException("Empty or missing hashAlgorithm");
             }
+            if(!hashAlgorithm.Equals("SHA1", StringComparison.InvariantCultureIgnoreCase) &&
+               !hashAlgorithm.Equals("MD5", StringComparison.InvariantCultureIgnoreCase))
+            {
+                throw new ProviderException("Invalid hashAlgorithm value. Must be either SHA1 or MD5");
+            }
+            _hashAlgorithm = hashAlgorithm;
             config.Remove("hashAlgorithm");
+
+
+            /*
+             * ----------------------
+             * Initialize passwordIterations
+             */
+            string passwordIterationsStr = config["passwordIterations"];
+            if (!String.IsNullOrEmpty(passwordIterationsStr))
+            {
+                if(!int.TryParse(passwordIterationsStr, out _passwordIterations))
+                {
+                    throw new ProviderException("Invalid passwordIterations value");
+                }
+            }
+            config.Remove("passwordIterations");
+
+            /*
+             * ----------------------
+             * Initialize keySize
+             */
+            string keySizeStr = config["keySize"];
+            if (!String.IsNullOrEmpty(keySizeStr))
+            {
+                if(!int.TryParse(keySizeStr, out _keySize) ||
+                    (_keySize != 256 && _keySize != 192 &&_keySize != 128))
+                {
+                    throw new ProviderException("Invalid keySize value [128|192|256]");
+                }
+            }
+            config.Remove("keySize");
+
+            /*
+             * ----------------------
+             * Initialize initVector
+             */
+            string initVector = config["initVector"];
+            if (!String.IsNullOrEmpty(initVector))
+            {
+                if (initVector.Length != 16)
+                {
+                    throw new ProviderException("Invalid initVector value. Must exactly 16 bytes lenght.");
+                }
+                _initVector = initVector;
+            }
+            config.Remove("initVector");
 
             _manager = new RijndaelSymmetricAlgorithm(
                 _passPhrase,
@@ -125,9 +179,12 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             {
                 return;
             }
-            SimpleCaptchaControl captchaControl = new SimpleCaptchaControl(this);
-            captchaControl.ValidationGroup = validationGroup;
-            captchaControl.ImageUrl = _imageUrl;
+            SimpleCaptchaControl captchaControl = 
+                new SimpleCaptchaControl(this)
+                {
+                    ValidationGroup = validationGroup,
+                    ImageUrl = this._imageUrl
+                };
 
             captchaPanel.Controls.Add(captchaControl);
         }
