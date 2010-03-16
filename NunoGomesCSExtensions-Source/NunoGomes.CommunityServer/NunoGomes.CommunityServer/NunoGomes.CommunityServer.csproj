@@ -85,7 +85,7 @@
     <Compile Include="Captcha\Configuration\CaptchaSection.cs" />
     <Compile Include="Captcha\Providers\CaptchaProvider.cs" />
     <Compile Include="Captcha\Providers\CaptchaProviderCollection.cs" />
-    <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaControl.cs" />
+    <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaProvider+SimpleCaptchaControl.cs" />
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaProvider.cs" />
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\SimpleCaptchaProviderImageHandler.cs" />
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\ADSSAntiBot.cs" />

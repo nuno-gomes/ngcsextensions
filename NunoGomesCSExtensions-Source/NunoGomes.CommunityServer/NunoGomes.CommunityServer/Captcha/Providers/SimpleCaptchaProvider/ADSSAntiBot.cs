@@ -1,27 +1,24 @@
 using System;
-using System.Data;
-using System.Configuration;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.WebControls.WebParts;
-using System.Web.UI.HtmlControls;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace NunoGomes.CommunityServer.Captcha.Providers
 {
+    /// <summary>
+    /// This is a modified version of Dmitiriy Salko ADSSAntiBot class.
+    /// The original post and code can be found at http://www.c-sharpcorner.com/UploadFile/dsalko/adssantibot10282007030736AM/adssantibot.aspx
+    /// </summary>
     public class ADSSAntiBot : IDisposable
     {
-        protected Bitmap result;
-        Graphics g;
-        Random rnd;
+        protected Bitmap _result;
+        private Graphics _graphics;
+        private Random _rnd;
 
-        public int Width {get; private set;}
+        public int Width { get; private set; }
         public int Height { get; private set; }
 
-        public ADSSAntiBot():this(135,35)
+        public ADSSAntiBot()
+            : this(135, 35)
         {
         }
 
@@ -29,9 +26,9 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
         {
             Width = width;
             Height = height;
-            rnd = new Random();
-            result = new Bitmap(width, height);
-            g = Graphics.FromImage(result);
+            _rnd = new Random();
+            _result = new Bitmap(width, height);
+            _graphics = Graphics.FromImage(_result);
         }
 
         ~ADSSAntiBot()
@@ -47,24 +44,24 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
 
         protected void Dispose(bool disposing)
         {
-            if (this.result != null)
-        {
-                this.result.Dispose();
-                this.result = null;
-        }
+            if (this._result != null)
+            {
+                this._result.Dispose();
+                this._result = null;
+            }
 
-            if (this.g != null)
-        {
-                this.g.Dispose();
-                this.g = null;
+            if (this._graphics != null)
+            {
+                this._graphics.Dispose();
+                this._graphics = null;
             }
         }
 
 
         public PointF Noise(PointF p, double eps)
         {
-            p.X = Convert.ToSingle(rnd.NextDouble() * eps * 2 - eps) + p.X;
-            p.Y = Convert.ToSingle(rnd.NextDouble() * eps * 2 - eps) + p.Y;
+            p.X = Convert.ToSingle(_rnd.NextDouble() * eps * 2 - eps) + p.X;
+            p.Y = Convert.ToSingle(_rnd.NextDouble() * eps * 2 - eps) + p.Y;
             return p;
         }
 
@@ -98,8 +95,8 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             //
             double eps = Height * 0.05;
 
-            double amp = rnd.NextDouble() * (double)(Height / 3);
-            double size = rnd.NextDouble() * (double)(Width / 4) + Width / 8;
+            double amp = _rnd.NextDouble() * (double)(Height / 3);
+            double size = _rnd.NextDouble() * (double)(Width / 4) + Width / 8;
 
             double offset = (double)(Height / 3);
 
@@ -111,33 +108,33 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             {
                 using (GraphicsPathIterator iter = new GraphicsPathIterator(path))
                 {
-            for (int i = 0; i < iter.SubpathCount; i++)
-            {
+                    for (int i = 0; i < iter.SubpathCount; i++)
+                    {
                         using (GraphicsPath sp = new GraphicsPath())
                         {
-                bool closed;
-                iter.NextSubpath(sp, out closed);
+                            bool closed;
+                            iter.NextSubpath(sp, out closed);
 
                             using (Matrix m = new Matrix())
                             {
-                m.RotateAt(Convert.ToSingle(rnd.NextDouble() * 30 - 15), sp.PathPoints[0]);
+                                m.RotateAt(Convert.ToSingle(_rnd.NextDouble() * 30 - 15), sp.PathPoints[0]);
 
-                m.Translate(-1 * i, 0);
+                                m.Translate(-1 * i, 0);
 
-                sp.Transform(m);
+                                sp.Transform(m);
                             }
 
-                np2.AddPath(sp, true);
-            }
+                            np2.AddPath(sp, true);
+                        }
                     }
                 }
 
-            for (int i = 0; i < np2.PointCount; i++)
-            {
-                //pn[i] = Noise( path.PathPoints[i] , eps);
-                pn[i] = Wave(np2.PathPoints[i], amp, size);
-                pt[i] = np2.PathTypes[i];
-            }
+                for (int i = 0; i < np2.PointCount; i++)
+                {
+                    //pn[i] = Noise( path.PathPoints[i] , eps);
+                    pn[i] = Wave(np2.PathPoints[i], amp, size);
+                    pt[i] = np2.PathTypes[i];
+                }
 
             }
 
@@ -150,7 +147,7 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             string str = "";
             for (int i = 0; i < len; i++)
             {
-                int n = rnd.Next() % 10;
+                int n = _rnd.Next() % 10;
                 str += n.ToString();
             }
 
@@ -193,34 +190,34 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
             //using (Graphics g = Graphics.FromImage(result))
             {
                 using (FontFamily fontFamily = new FontFamily("Verdana"))
-            {
+                {
                     SizeF textSize;
                     float fontSize;
-                    MeasureText(text, g, fontFamily, out textSize, out fontSize);
+                    MeasureText(text, _graphics, fontFamily, out textSize, out fontSize);
                     int width = Convert.ToInt32(textSize.Width);
                     int height = Convert.ToInt32(textSize.Height);
 
-            int x = Convert.ToInt32(Math.Abs((double)width - (double)Width) * rnd.NextDouble());
-            int y = Convert.ToInt32(Math.Abs((double)height - (double)Height) * rnd.NextDouble());
+                    int x = Convert.ToInt32(Math.Abs((double)width - (double)Width) * _rnd.NextDouble());
+                    int y = Convert.ToInt32(Math.Abs((double)height - (double)Height) * _rnd.NextDouble());
 
                     using (GraphicsPath path = new GraphicsPath(FillMode.Alternate))
                     {
-            int fontStyle = (int)(FontStyle.Regular);
+                        int fontStyle = (int)(FontStyle.Regular);
                         float emSize = fontSize;
-            Point origin = new Point(x, y);
-            StringFormat format = StringFormat.GenericDefault;
+                        Point origin = new Point(x, y);
+                        StringFormat format = StringFormat.GenericDefault;
 
                         path.AddString(text, fontFamily, fontStyle, emSize, origin, format);
 
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
-            Rectangle rect = new Rectangle(0, 0, Width, Height);
-            g.FillRectangle(new System.Drawing.Drawing2D.LinearGradientBrush(rect, Color.White, Color.LightGray, 0f), rect);
-            //g.DrawString(aText, f, new SolidBrush(Color.Black), x, y);
-            g.SmoothingMode = SmoothingMode.AntiAlias;
+                        _graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
+                        Rectangle rect = new Rectangle(0, 0, Width, Height);
+                        _graphics.FillRectangle(new System.Drawing.Drawing2D.LinearGradientBrush(rect, Color.White, Color.LightGray, 0f), rect);
+                        //g.DrawString(aText, f, new SolidBrush(Color.Black), x, y);
+                        _graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
                         using (GraphicsPath radomizedPath = RandomWarp(path))
                         {
-                            g.FillPath(new SolidBrush(Color.Black), radomizedPath);
+                            _graphics.FillPath(new SolidBrush(Color.Black), radomizedPath);
                         }
                     }
                 }
@@ -231,7 +228,7 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
         {
             get
             {
-                return result;
+                return _result;
             }
         }
     }
