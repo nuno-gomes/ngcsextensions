@@ -146,18 +146,23 @@ namespace NunoGomes.CommunityServer.Recaptcha
 
         public override void AddCaptchaControls(System.Web.UI.WebControls.Panel captchaPanel, string validationGroup)
         {
-            captchaPanel.Controls.Add(
+            RecaptchaControl recaptchaControl = 
                 new RecaptchaControl
                 {
                     PrivateKey = this._privateKey,
                     PublicKey = this._publicKey,
                     Theme = this._theme,
-                    ErrorMessage = this._errorMessage,
                     CustomThemeWidget = this._customThemeWidget,
                     AllowMultipleInstances = this._allowMultipleInstances,
                     OverrideSecureMode = this._overrideSecureMode,
                     SkipRecaptcha = this._skipRecaptcha
-                });
+                };
+            if (RecaptchaManager.SupportsErrorMessage)
+            {
+                recaptchaControl.ErrorMessage = this._errorMessage;
+            }
+
+            captchaPanel.Controls.Add(recaptchaControl);
         }
     }
 }
