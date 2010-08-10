@@ -9,12 +9,12 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs05.codeplex.com/
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/TFS05
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = NunoGomes.CommunityServer\\NunoGomes.CommunityServer.csproj
 		SccProjectName1 = NunoGomes.CommunityServer
 		SccLocalPath1 = NunoGomes.CommunityServer
-		SccProjectUniqueName2 = NunoGomes.CommunityServer.ReCaptcha\\NunoGomes.CommunityServer.ReCaptcha.csproj
+		SccProjectUniqueName2 = NunoGomes.CommunityServer.ReCaptcha\\NunoGomes.CommunityServer.Recaptcha.csproj
 		SccProjectName2 = NunoGomes.CommunityServer.ReCaptcha
 		SccLocalPath2 = NunoGomes.CommunityServer.ReCaptcha
 	EndGlobalSection
