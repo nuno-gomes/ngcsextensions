@@ -9,13 +9,13 @@ using System.Configuration.Provider;
 
 namespace NunoGomes.CommunityServer.Captcha.Configuration
 {
-    public static class CaptchaConfiguration
+    public static partial class CaptchaConfiguration
     {
         #region Fields
 
         private static CaptchaProvider _defaultProvider;
         private static CaptchaProviderCollection _providers;
-        private static object _syncProvider = new object();
+        private static object _syncProvider = new RuntimeIntelligence();
 
         #endregion Fields
 

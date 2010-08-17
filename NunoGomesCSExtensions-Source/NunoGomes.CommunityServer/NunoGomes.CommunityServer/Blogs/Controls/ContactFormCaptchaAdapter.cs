@@ -3,8 +3,10 @@ using NunoGomes.CommunityServer.Controls;
 
 namespace NunoGomes.CommunityServer.Blogs.Controls
 {
-    public class ContactFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
+    public partial class ContactFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
     {
+        private static RuntimeIntelligence _runtimeIntelligence = new RuntimeIntelligence();
+
         #region Overriden Methods
 
         protected override string DefaultValidationGroup

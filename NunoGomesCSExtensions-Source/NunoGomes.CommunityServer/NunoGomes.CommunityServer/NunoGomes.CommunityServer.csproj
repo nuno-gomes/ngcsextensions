@@ -1,4 +1,5 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -13,8 +14,13 @@
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <IsWebBootstrapper>true</IsWebBootstrapper>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <PublishUrl>http://localhost/NunoGomes.CommunityServer/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
@@ -27,13 +33,9 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>true</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +45,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -51,6 +54,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommunityServer.Blogs, Version=4.1.40407.4157, Culture=neutral, processorArchitecture=MSIL">
@@ -64,6 +68,9 @@
     <Reference Include="CommunityServer.Controls, Version=4.1.40407.4157, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\External-Lib\CommunityServer.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="PreEmptive.Attributes">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio 10.0\PreEmptive Solutions\Dotfuscator Community Edition\PreEmptive.Attributes.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -79,9 +86,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blogs\Controls\ContactFormCaptchaAdapter+RuntimeIntelligence.cs" />
+    <Compile Include="Blogs\Controls\WeblogPostCommentFormCaptchaAdapter+RuntimeIntelligence.cs" />
     <Compile Include="Blogs\Controls\WeblogPostList.cs" />
     <Compile Include="Blogs\Controls\WeblogPostRating.cs" />
     <Compile Include="Captcha\Configuration\CaptchaConfiguration.cs" />
+    <Compile Include="Captcha\Configuration\CaptchaConfiguration+RuntimeIntelligence.cs" />
     <Compile Include="Captcha\Configuration\CaptchaSection.cs" />
     <Compile Include="Captcha\Providers\CaptchaProvider.cs" />
     <Compile Include="Captcha\Providers\CaptchaProviderCollection.cs" />
@@ -91,7 +101,9 @@
     <Compile Include="Captcha\Providers\SimpleCaptchaProvider\ADSSAntiBot.cs" />
     <Compile Include="Blogs\Controls\ContactFormCaptchaAdapter.cs" />
     <Compile Include="Blogs\Components\WeblogRssHandler.cs" />
+    <Compile Include="Controls\OpenIdCreateUserSubFormCaptchaAdapter+RuntimeIntelligence.cs" />
     <Compile Include="Controls\RateableContentRating.cs" />
+    <Compile Include="Controls\CreateUserFormCaptchaAdapter+RuntimeIntelligence.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,7 +119,7 @@
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>.NET Framework Client Profile</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
