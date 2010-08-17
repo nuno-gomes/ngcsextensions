@@ -3,8 +3,10 @@ using CommunityServer.Controls;
 
 namespace NunoGomes.CommunityServer.Controls
 {
-    public class CreateUserFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
+    public partial class CreateUserFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
     {
+        private static RuntimeIntelligence _runtimeIntelligence = new RuntimeIntelligence();
+
         #region Overriden Methods
 
         protected override List<string> ValidAnchorIds

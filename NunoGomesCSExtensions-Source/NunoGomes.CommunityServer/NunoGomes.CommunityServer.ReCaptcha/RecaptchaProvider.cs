@@ -16,6 +16,7 @@ namespace NunoGomes.CommunityServer.Recaptcha
         private bool _overrideSecureMode;
         private bool _skipRecaptcha;
 
+        [PreEmptive.Attributes.Feature("RecaptchaProvider")]
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             if (config == null)

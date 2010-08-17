@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunoGomes.CommunityServer", "NunoGomes.CommunityServer\NunoGomes.CommunityServer.csproj", "{484B66D8-0DFB-45D2-96EA-7EA275725477}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NunoGomes.CommunityServer.Recaptcha", "NunoGomes.CommunityServer.ReCaptcha\NunoGomes.CommunityServer.Recaptcha.csproj", "{D10B01D3-26B4-4C17-A624-33F8D40749D6}"
@@ -9,7 +9,7 @@ Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 3
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/TFS05
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs05
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = NunoGomes.CommunityServer\\NunoGomes.CommunityServer.csproj
 		SccProjectName1 = NunoGomes.CommunityServer

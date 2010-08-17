@@ -4,8 +4,10 @@ using NunoGomes.CommunityServer.Controls;
 
 namespace NunoGomes.CommunityServer.Blogs.Controls
 {
-    public class WeblogPostCommentFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
+    public partial class WeblogPostCommentFormCaptchaAdapter : WrappedFormBaseCaptchaAdapter<WrappedFormBase>
     {
+        private static RuntimeIntelligence _runtimeIntelligence = new RuntimeIntelligence();
+
         #region Overriden Methods
 
         protected override List<string> ValidAnchorIds
