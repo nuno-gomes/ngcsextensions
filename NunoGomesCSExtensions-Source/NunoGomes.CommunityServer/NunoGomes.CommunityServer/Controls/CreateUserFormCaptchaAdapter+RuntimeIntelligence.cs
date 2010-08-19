@@ -9,7 +9,7 @@ namespace NunoGomes.CommunityServer.Controls
     {
         private class RuntimeIntelligence
         {
-            [PreEmptive.Attributes.Feature("CreateUserFormCaptchaAdapter")]
+            //[PreEmptive.Attributes.Feature("CreateUserFormCaptchaAdapter")]
             public RuntimeIntelligence()
             { }
         }

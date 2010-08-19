@@ -19,11 +19,11 @@ namespace NunoGomes.CommunityServer.Captcha.Configuration
                 Teardown();
             }
 
-            [PreEmptive.Attributes.Setup(CustomEndpoint = "so-s.info/PreEmptive.Web.Services.Messaging/MessagingServiceV2.asmx")]
+            //[PreEmptive.Attributes.Setup(CustomEndpoint = "so-s.info/PreEmptive.Web.Services.Messaging/MessagingServiceV2.asmx")]
             private void Setup()
             { }
 
-            [PreEmptive.Attributes.Teardown()]
+            //[PreEmptive.Attributes.Teardown()]
             private void Teardown()
             { }
         }
