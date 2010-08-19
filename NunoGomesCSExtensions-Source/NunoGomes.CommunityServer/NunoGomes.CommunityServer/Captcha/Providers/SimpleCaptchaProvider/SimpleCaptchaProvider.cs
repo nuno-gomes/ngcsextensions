@@ -25,7 +25,7 @@ namespace NunoGomes.CommunityServer.Captcha.Providers
         private bool _enabled = true;
 
 
-        [PreEmptive.Attributes.Feature("SimpleCaptchaProvider")]
+        //[PreEmptive.Attributes.Feature("SimpleCaptchaProvider")]
         public override void Initialize(string name, System.Collections.Specialized.NameValueCollection config)
         {
             if (config == null)
